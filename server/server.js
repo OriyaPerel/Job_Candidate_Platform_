@@ -1,42 +1,53 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const rubberDucksRoutes = require('./routes/rubberDucks')
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import UserRoutes from './routes/Users.js';
+import AuthRoutes from './routes/auth.js';
+import JobRoutes from './routes/jobs.js'; 
+import './passport.js';
 
 dotenv.config();
 
-// Constants
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5001;
+const CLIENT = process.env.CLIENT_URL || 'http://localhost:3002';
 
-// Create Express server
 const app = express();
 
-// Middleware
-app.use(express.json())
+app.get('/health', (_req, res) => res.json({ ok: true }));
+
+app.use(express.json());
 app.use(cors({
-  origin: process.env.CLIENT_URL
+  origin: CLIENT,
+  credentials: true,
+  methods: ['GET','POST','PUT','PATCH','DELETE','OPTIONS'],
+  allowedHeaders: ['Content-Type','Authorization']
 }));
 
-app.use((req, res, next) => {
-  console.log(req.path, req.method)
-  next()
-})
+
+app.use((req, _res, next) => {
+  console.log(req.method, req.path);
+  next();
+});
 
 // Routes
-app.use('/api/rubberDucks', rubberDucksRoutes)
+app.use('/api/users', UserRoutes);
+app.use('/api/auth', AuthRoutes);
+app.use('/api', JobRoutes);
 
-// Connect to MongoDB
+
+
+
+
 mongoose.connect(process.env.MONGO_URI)
   .then(() => {
-    // listen for requests
+    console.log('Mongo connected');
     app.listen(PORT, () => {
-      console.log('connected to mongoDB & listening on port', process.env.PORT)
-    })
-  }).catch((err) => {
-    console.log(err)
+      console.log('listening on', PORT);
+    });
+  })
+  .catch(err => {
+    console.error('Mongo connect error:', err.message);
+    // אם את רוצה לבדוק את הראוטים גם בלי DB, אפשר זמנית להאזין בכל זאת:
+    // app.listen(PORT, () => console.log('listening on', PORT, '(without DB)'));
   });
-
-
-
-

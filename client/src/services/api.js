@@ -1,11 +1,17 @@
 import axios from 'axios';
 
-// Create an instance of Axios with default configurations
-const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:5001/api',
+  headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
 
-export default axiosInstance;
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token && !config.headers.Authorization) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+export default api;

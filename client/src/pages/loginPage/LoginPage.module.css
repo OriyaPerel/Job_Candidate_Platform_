@@ -1,0 +1,74 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  background: #f6f7fb;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  direction: rtl;
+}
+
+.title {
+  margin: 0 0 16px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: 14px;
+}
+
+.input {
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #dfe3ea;
+  padding: 0 12px;
+  outline: none;
+}
+
+.primaryBtn {
+  margin-top: 8px;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  background: #111827;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.separator {
+  margin: 16px 0;
+  text-align: center;
+  color: #6b7280;
+}
+
+.googleBtnContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  color: #b91c1c;
+  margin-top: 10px;
+}
+
+.bottomText {
+  margin-top: 10px;
+  text-align: center;
+  color: #374151;
+}
