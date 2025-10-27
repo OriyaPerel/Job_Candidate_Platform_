@@ -6,7 +6,7 @@ import styles from './CreateJobPage.module.css';
 export default function CreateJobPage() {
   const { userId: userIdFromUrl } = useParams();
 
-  // גיבוי מזהה משתמש מה-localStorage אם אין ב-URL
+  
   const userId = useMemo(() => {
     if (userIdFromUrl) return userIdFromUrl;
     try {
@@ -37,7 +37,7 @@ export default function CreateJobPage() {
     e.preventDefault();
     if (status.loading) return;
 
-    // ולידציה בסיסית לפני שליחה
+    
     const position = form.position.trim();
     const description = form.description.trim();
     if (!userId) {
@@ -80,7 +80,7 @@ await createJob(payload);
         location: '',
       });
     } catch (error) {
-      // מציגים שגיאה אמיתית אם השרת החזיר
+      
       const apiMsg = error?.response?.data?.message || error?.message || 'Failed to create job.';
       const apiDetail =
         error?.response?.data?.detail ||

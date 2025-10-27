@@ -1,10 +1,103 @@
-.home {
+.container {
+  min-height: 100vh;
+  background-color: #f9e9f0;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* סרגל עליון */
+.navbar {
+  background-color: #4b3c47;
+  color: white;
+  padding: 10px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* כותרת ראשית */
+.headline {
   text-align: center;
+  font-size: 2rem;
+  color: #4b3c47;
+  margin: 30px 0;
+}
+
+/* אזור התוכן */
+.content {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
   padding: 20px;
 }
 
-.headline {
-  font-size: 2em;
-  margin-bottom: 20px;
-  color: #53474F;
+/* ריבוע המשרות (שמאל) */
+.jobsBox {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  flex: 2;
+  text-align: left;
+}
+
+.jobsBox h2 {
+  margin-bottom: 10px;
+  color: #4b3c47;
+}
+
+.jobsBox ul {
+  list-style: none;
+  padding: 0;
+}
+
+.jobsBox li {
+  margin: 8px 0;
+}
+
+.jobsBox a {
+  color: #4b3c47;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.jobsBox a:hover {
+  color: #d17ba1;
+}
+
+/* הצד הימני – שלושה ריבועים קטנים */
+.rightBoxes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 1;
+}
+
+.smallBox {
+  background: white;
+  border-radius: 20px;
+  padding: 30px 10px;
+  text-align: center;
+  font-weight: bold;
+  color: #4b3c47;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  text-decoration: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.smallBox:hover {
+  background-color: #f3d5e4;
+  transform: translateY(-3px);
 }
