@@ -10,9 +10,10 @@ const UserSchema = new mongoose.Schema(
     yearsExperience: { type: Number, min: 0, default: 0 },
     about: { type: String, trim: true },
     jobsLookingFor: [{ type: String, trim: true }],
+    embedding: { type: [Number], default: null },
     
-    passwordHash: { type: String }, // אם המשתמש נרשם עם סיסמה
-    googleId: { type: String },     // אם נכנס עם Google
+    passwordHash: { type: String }, 
+    googleId: { type: String },    
   },
   { timestamps: true }
 );

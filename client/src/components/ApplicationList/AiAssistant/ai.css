@@ -1,0 +1,148 @@
+/* שכבת רקע שמכסה את כל המסך וממרכזת את החלון */
+.ai-backdrop {
+  position: fixed;
+  inset: 0; /* top:0, right:0, bottom:0, left:0 */
+  background: rgba(15, 23, 42, 0.35);
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* חלון הצ'אט – בגודל קבוע באמצע המסך */
+.ai-panel {
+  width: min(900px, 95vw);
+  height: min(600px, 90vh);
+
+  background: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+/* כותרת */
+.ai-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.ai-close {
+  border: none;
+  background: transparent;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* תוכן עם גלילה פנימית */
+.ai-content {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* תשובה טקסטואלית */
+.ai-reply {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 12px;
+  border-radius: 12px;
+  white-space: pre-wrap;
+  font-size: 14px;
+}
+
+/* מטא מידע */
+.ai-meta {
+  color: #374151;
+  font-size: 13px;
+}
+
+/* שורת קלט למטה */
+.ai-input-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.ai-input {
+  flex: 1;
+  padding: 10px 12px;
+  border-radius: 999px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+}
+
+.ai-send {
+  padding: 10px 16px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  background: #111827;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* הודעת שגיאה */
+.ai-error {
+  color: #b91c1c;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+  padding: 8px 10px;
+  border-radius: 8px;
+  white-space: pre-wrap;
+  font-size: 13px;
+}
+
+/* כרטיסיות תוצאות */
+.ai-grid {
+  margin-top: 4px;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+}
+
+.ai-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 12px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+/* בועה של המשתמש – מיושרת לימין */
+.ai-user-msg {
+  align-self: flex-end;
+  max-width: 70%;
+  background: #e0f2fe;
+  border-radius: 16px;
+  padding: 8px 12px;
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+/* בלוק תשובת ה-AI (טקסט + כרטיסיות) */
+.ai-assistant-block {
+  align-self: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 4px 0;
+}
+
+
+.ai-title { font-weight: 700; }
+.ai-sub   { color: #374151; }
+.ai-line  { color: #4b5563; }
+.ai-score { margin-top: 4px; font-size: 12px; color: #6b7280; }

@@ -1,4 +1,3 @@
-// src/App.jsx
 import { BrowserRouter, Routes, Route, Link, Navigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Home from './pages/HomePage/HomePage';
@@ -10,6 +9,8 @@ import UserPage from './pages/UserPage/UserPage';
 import JobsPage from './pages/JobsPage/JobsPage';
 import JobPage from './pages/JobPage/JobPage';
 
+// 💡 ה-AI Chat Panel הגלובלי
+import AiChatPanel from './components/ApplicationList/AiAssistant/AiChatPanel';
 
 export default function App() {
   return (
@@ -22,6 +23,9 @@ export default function App() {
 function AppInner() {
   const location = useLocation();
   const [isAuthed, setIsAuthed] = useState(!!localStorage.getItem('token'));
+
+  // 🔹 סטייט גלובלי לחלון ה-AI
+  const [aiOpen, setAiOpen] = useState(false);
 
   // נטען את המשתמש מה-LocalStorage (אם קיים)
   const user = (() => {
@@ -57,7 +61,7 @@ function AppInner() {
         <nav className={styles.appNav}>
           <Link to="/register-user" className={styles.appLink}>Registration form</Link>
 
-         {isAuthed && <Link to="/create-job" className={styles.appLink}>Create Job</Link>}
+          {isAuthed && <Link to="/create-job" className={styles.appLink}>Create Job</Link>}
 
           {isAuthed ? (
             <>
@@ -84,20 +88,26 @@ function AppInner() {
 
       <main className={styles.main}>
         <Routes>
-  <Route path="/" element={isAuthed ? <Home /> : <Navigate to="/login" replace />} />
-  <Route path="/register-user" element={<UserRegisterPage />} />
-  <Route path="/login" element={<LoginPage />} />
-  <Route path="/create-job" element={isAuthed ? <CreateJobPage /> : <Navigate to="/login" replace />} />
-  <Route path="/user/:email" element={<UserPage />} />
-  <Route path="/users/:userId/jobs/new" element={<CreateJobPage />} />
-  <Route path="/jobs" element={isAuthed ? <JobsPage /> : <Navigate to="/login" replace />} />
-  <Route path="/jobs/:id" element={isAuthed ? <JobPage /> : <Navigate to="/login" replace />} />
+          {/* 🔹 מעבירים ל-Home פרופ שפותח את ה-AI */}
+          <Route
+            path="/"
+            element={isAuthed ? <Home onOpenAI={() => setAiOpen(true)} /> : <Navigate to="/login" replace />}
+          />
+          <Route path="/register-user" element={<UserRegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/create-job" element={isAuthed ? <CreateJobPage /> : <Navigate to="/login" replace />} />
+          <Route path="/user/:email" element={<UserPage />} />
+          <Route path="/users/:userId/jobs/new" element={<CreateJobPage />} />
+          <Route path="/jobs" element={isAuthed ? <JobsPage /> : <Navigate to="/login" replace />} />
+          <Route path="/jobs/:id" element={isAuthed ? <JobPage /> : <Navigate to="/login" replace />} />
 
-  {/* 404 / redirect */}
-  <Route path="*" element={<Navigate to={isAuthed ? "/" : "/login"} replace />} />
-</Routes>
-
+          {/* 404 / redirect */}
+          <Route path="*" element={<Navigate to={isAuthed ? "/" : "/login"} replace />} />
+        </Routes>
       </main>
+
+      {/* 🔹 כאן מרנדרים את המודאל פעם אחת לכל האפליקציה */}
+      <AiChatPanel open={aiOpen} onClose={() => setAiOpen(false)} />
     </div>
   );
 }

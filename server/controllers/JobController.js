@@ -63,11 +63,7 @@ export async function getAllJobs(req, res) {
   }
 }
 
-
-
-
-
-export async function getJobById(req, res) {
+export async function getJobById(req, res) {  
   try {
     const { id } = req.params;
 
@@ -84,8 +80,9 @@ export async function getJobById(req, res) {
     }
 
     const job = await Job.findById(id)
-      .select("position description yearsOfExperienceRequired skillsRequired department location postedBy createdAt ")
-      .lean();
+  .select("position description yearsOfExperienceRequired skillsRequired department location postedBy createdAt")
+  .populate("postedBy", "fullName email _id")  // ⬅️ הוספנו את זה
+  .lean();
 
     if (!job) {
       console.warn("[getJobById] not found:", id);

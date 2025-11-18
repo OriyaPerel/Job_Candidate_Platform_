@@ -1,12 +1,16 @@
 import api from './api';
 
-export const createJob = (payload) =>
-  api.post('/jobs', payload).then(r => r.data);
+export async function createJob(payload) {
+  const { data } = await api.post('/jobs', payload);
+  return data;
+}
 
-export const getAllJobs = async () => {
+export async function getAllJobs() {
   const { data } = await api.get('/jobs');
   return data;
-};
+}
 
-export const getJobById = (id, { signal } = {}) =>
-  api.get(`/jobs/${id}`, { signal }).then(r => r.data);
+export async function getJobById(id, { signal } = {}) {
+  const { data } = await api.get(`/jobs/${id}`, { signal });
+  return data;
+}

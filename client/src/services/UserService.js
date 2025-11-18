@@ -1,7 +1,10 @@
 import api from './api';
 
-export const createUser = (payload) =>
-  api.post('/users/register', payload).then(r => r.data);
-
-export const getUserByEmail = (email) =>
-  api.get(`/users/${encodeURIComponent(email)}`).then(r => r.data);
+export async function createUser(payload) {
+  const { data } = await api.post('/users/register', payload);
+  return data;
+}
+export async function getUserByEmail(email) {
+  const { data } = await api.get(`/users/${encodeURIComponent(email)}`);
+  return data;
+}

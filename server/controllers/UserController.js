@@ -1,4 +1,7 @@
 import User from "../models/UserModel.js";
+// למעלה בקובץ (יחד עם שאר ה-importים)
+import { embedText } from "../AI/vectorSearch.js"; // אם הקובץ בתיקייה אחרת, תעדכני את הנתיב
+
 
 import bcrypt from 'bcryptjs';
 
@@ -17,34 +20,58 @@ export const createUser = async (req, res) => {
       jobsLookingFor = [],
     } = req.body || {};
 
-    // ולידציות ברורות + הודעות טובות
     if (!fullName || !role || !email || !password) {
-      return res.status(400).json({ message: "fullName, role, email and password are required" });
+      return res
+        .status(400)
+        .json({ message: "fullName, role, email and password are required" });
     }
 
     const normalizedEmail = String(email).toLowerCase().trim();
 
-    // דופליקייט מייל? החזר 409 במקום 500
     const exists = await User.findOne({ email: normalizedEmail });
     if (exists) {
       return res.status(409).json({ message: "Email already exists" });
     }
 
-    // נרמל קלטים
     const normalizedSkills = Array.isArray(skills)
       ? skills
-      : String(skills || "").split(",").map(s => s.trim()).filter(Boolean);
+      : String(skills || "")
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
 
     const normalizedJobsLookingFor = Array.isArray(jobsLookingFor)
       ? jobsLookingFor
-      : String(jobsLookingFor || "").split(",").map(s => s.trim()).filter(Boolean);
+      : String(jobsLookingFor || "")
+          .split(",")
+          .map((s) => s.trim())
+          .filter(Boolean);
 
     const years = Number.isFinite(Number(yearsExperience)) ? Number(yearsExperience) : 0;
 
-    // hash לסיסמה
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // יצירה
+    // 🔹 חישוב טקסט לאמבדינג
+    const embeddingText = [
+      fullName,
+      role,
+      normalizedSkills.join(", "),
+      `years of experience: ${years}`,
+      normalizedJobsLookingFor.length
+        ? `looking for: ${normalizedJobsLookingFor.join(", ")}`
+        : "",
+      about || "",
+    ]
+      .filter(Boolean)
+      .join(" | ");
+
+    let embedding = [];
+    try {
+      embedding = await embedText(embeddingText);
+    } catch (e) {
+      console.error("Failed to embed new user:", e);
+    }
+
     const user = await User.create({
       fullName: fullName.trim(),
       role: role.trim(),
@@ -55,6 +82,7 @@ export const createUser = async (req, res) => {
       about,
       jobsLookingFor: normalizedJobsLookingFor,
       passwordHash,
+      embedding, // ⬅️ חשוב בשביל vector search
     });
 
     return res.status(201).json({
@@ -65,20 +93,21 @@ export const createUser = async (req, res) => {
       createdAt: user.createdAt,
     });
   } catch (err) {
-    // החזרי שגיאת ולידציה יפה במקום 500
-    if (err?.name === 'ValidationError') {
-      // לדוגמה: role/fulName חסר וכד'
+    if (err?.name === "ValidationError") {
       const fields = Object.keys(err.errors);
-      return res.status(400).json({ message: `Validation failed: ${fields.join(', ')}` });
+      return res
+        .status(400)
+        .json({ message: `Validation failed: ${fields.join(", ")}` });
     }
     if (err?.code === 11000 && err?.keyPattern?.email) {
-      return res.status(409).json({ message: 'Email already exists' });
+      return res.status(409).json({ message: "Email already exists" });
     }
-    console.error('REGISTER error:', err);
-    return res.status(500).json({ message: 'Server error', detail: err?.message });
+    console.error("REGISTER error:", err);
+    return res
+      .status(500)
+      .json({ message: "Server error", detail: err?.message });
   }
 };
-
 
 export const getUserByEmail = async (req, res) => {
   try {

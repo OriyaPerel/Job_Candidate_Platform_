@@ -65,7 +65,7 @@ textarea:focus {
   text-align: center;
 }
 
-/* --- תוספות לעמוד המשתמש --- */
+
 .row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -140,8 +140,45 @@ textarea:focus {
 .placeholder {
   color: #777;
 }
+.applicationsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-/* במסכים צרים: עמודה אחת */
+.applicationItem {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s ease;
+}
+
+.applicationItem:last-child {
+  border-bottom: none;
+}
+
+.applicationLink {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.applicationItem:hover {
+  background-color: #f7f9fc;
+}
+
+.applicationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.applicationStatus {
+  font-size: 0.85em;
+  background: #eef;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
 @media (max-width: 560px) {
   .grid2 { grid-template-columns: 1fr; }
 }

@@ -7,7 +7,8 @@ const JobSchema = new mongoose.Schema({
   skillsRequired: { type: [String], default: [] },
   department: { type: String, trim: true },
   location:   { type: String, trim: true },
-  postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
+  postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+  embedding: { type: [Number], default: null }
 }, { timestamps: true });
 
 

@@ -1,0 +1,50 @@
+.wrapper {
+  margin-top: 20px;
+}
+
+.title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item {
+  padding: 10px 12px;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.link {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: 500;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.status {
+  font-size: 0.85em;
+  background: #eef;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
+.placeholder {
+  font-style: italic;
+  color: #999;
+}
