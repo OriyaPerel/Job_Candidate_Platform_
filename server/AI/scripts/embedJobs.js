@@ -23,7 +23,7 @@ console.log("Loaded .env from:", loadedFrom || "(none)");
 
 const uri = process.env.MONGODB_URI || process.env.MONGO_URI || process.env.ATLAS_URI;
 const dbName = process.env.MONGODB_DB || process.env.DB_NAME || "projectDB";
-if (!uri) { console.error("❌ Missing Mongo URI"); process.exit(1); }
+if (!uri) { console.error(" Missing Mongo URI"); process.exit(1); }
 
 // ---- recursive text collector (handles nested objects/arrays) ----
 function collectPrimitives(value, chunks, keyPath = [], skipKeys = new Set(["_id","embedding","__v"])) {
@@ -52,7 +52,7 @@ function autoTextDeep(doc) {
 // ---- embedding helper with normalization (object or array response) ----
 async function embedText(text) {
   const res = await ai.embed({
-    embedder: "googleai/text-embedding-004", // 768 dim
+    embedder: "googleai/text-embedding-001", // 768 dim
     content: text,
   });
   const vec = Array.isArray(res)
@@ -101,13 +101,13 @@ async function main() {
       done++;
       if (done % 10 === 0) console.log(`jobs: indexed ${done}/${totalMissing}...`);
     } catch (err) {
-      console.error(`❌ Error embedding job ${doc._id}:`, err?.message || err);
+      console.error(` Error embedding job ${doc._id}:`, err?.message || err);
       await col.updateOne({ _id: doc._id }, { $set: { embedding: null } });
     }
   }
 
-  console.log(`✅ jobs: indexed ${done} (out of ${totalMissing})`);
+  console.log(` jobs: indexed ${done} (out of ${totalMissing})`);
   await client.close();
 }
 
-main().catch((e) => { console.error("❌ embedJobs:", e); process.exit(1); });
+main().catch((e) => { console.error(" embedJobs:", e); process.exit(1); });

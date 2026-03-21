@@ -9,6 +9,7 @@ import aiRoute from './AI/aiRoute.js';
 import ApplicationRoutes from './routes/application.js';
 import './passport.js';
 
+
 dotenv.config();
 
 const PORT = process.env.PORT || 5001;
@@ -16,7 +17,6 @@ const CLIENT = process.env.CLIENT_URL || 'http://localhost:3002';
 
 const app = express();
 
-// ✅ קודם כל CORS לפני כל דבר אחר
 const corsOptions = {
   origin: CLIENT,
   credentials: true,
@@ -25,21 +25,17 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // תמיכה ב־preflight של CORS
-
-// ✅ אחרי CORS - נפרש את ה־JSON
+app.options('*', cors(corsOptions)); 
 app.use(express.json());
-
-// ✅ הדפסת כל בקשה ללוג (לא חובה, רק לדיבוג)
 app.use((req, _res, next) => {
   console.log(req.method, req.path);
   next();
 });
 
-// ✅ ראוט בדיקה (לא חובה, רק לוודא שהשרת רץ)
+
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
-// ✅ Routes עיקריים
+//  Routes 
 app.use('/api/users', UserRoutes);
 app.use('/api/auth', AuthRoutes);
 app.use('/api', JobRoutes);

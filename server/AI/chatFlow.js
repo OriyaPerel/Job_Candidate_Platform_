@@ -4,14 +4,7 @@ import { searchFreeText } from "./searchFlow.js";
 
 const chatPrompt = ai.prompt("chat");
 
-/**
- * message: מחרוזת חופשית מהמשתמש
- * options: { target?, topK?, filters?, history? }
- *  - target: "users" | "jobs" | "applications" (לא חובה; אם אין – הזיהוי אוטומטי)
- *  - topK: מספר תוצאות (דיפולט 5)
- *  - filters: { location, skills[], minYears, remote, company, title, employmentType, seniority }
- *  - history: [{role:"user"|"assistant", content:"..."}] (לא חובה)
- */
+
 export async function chatTurn(message, options = {}) {
   const { target, topK = 5, filters, history = [] } = options;
 
@@ -25,9 +18,7 @@ export async function chatTurn(message, options = {}) {
     .map((h) => `${h.role}: ${h.content}`)
     .join("\n");
 
-  // 🔎 מצב של חיפוש – מביאים נתונים אמיתיים מהמערכת, וה-AI רואה אותם
-  // בתוך chatTurn, במקום הבלוק הזה:
-
+  
 if (looksLikeSearch) {
   const searchResult = await searchFreeText(message, { target, topK, filters });
 

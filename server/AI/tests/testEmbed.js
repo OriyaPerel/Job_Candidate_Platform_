@@ -5,7 +5,7 @@ async function test() {
   console.log("🧠 Checking embedding model...");
   try {
     const res = await ai.embed({
-      embedder: "googleai/text-embedding-004",
+      embedder: "googleai/text-embedding-001",
       content: "This is a test sentence to verify embedding generation works correctly."
     });
 

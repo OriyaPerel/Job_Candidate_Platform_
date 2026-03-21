@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get("/health", (_req, res) => res.json({ ok: true, service: "ai" }));
 
-// חיפוש חופשי (עם אפשרות להעביר target/topK/filters)
+
 router.post("/query", async (req, res) => {
   try {
     const q = (req.body?.query || "").trim();
@@ -25,7 +25,7 @@ router.post("/query", async (req, res) => {
   }
 });
 
-// ✨ צ'אט חכם — שיחה חופשית, כולל חיפוש סמנטי לפי הצורך
+
 router.post("/chat", async (req, res) => {
   try {
     const message = (req.body?.message || "").trim();

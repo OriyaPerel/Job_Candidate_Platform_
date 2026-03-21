@@ -23,7 +23,7 @@ console.log("Loaded .env from:", loadedFrom || "(none)");
 
 const uri = process.env.MONGODB_URI || process.env.MONGO_URI || process.env.ATLAS_URI;
 const dbName = process.env.MONGODB_DB || process.env.DB_NAME || "projectDB";
-if (!uri) { console.error("❌ Missing Mongo URI"); process.exit(1); }
+if (!uri) { console.error(" Missing Mongo URI"); process.exit(1); }
 
 // ---- בניית טקסט רקורסיבית מכל שדה אפשרי (כולל אובייקטים/מערכים) ----
 function collectPrimitives(value, chunks, keyPath = [], skipKeys = new Set(["_id","embedding","passwordHash","__v"])) {
@@ -56,7 +56,7 @@ function autoTextDeep(doc) {
 
 async function embedText(text) {
   const res = await ai.embed({
-    embedder: "googleai/text-embedding-004",
+    embedder: "googleai/text-embedding-001",
     content: text,
   });
 

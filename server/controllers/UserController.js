@@ -1,6 +1,5 @@
 import User from "../models/UserModel.js";
-// למעלה בקובץ (יחד עם שאר ה-importים)
-import { embedText } from "../AI/vectorSearch.js"; // אם הקובץ בתיקייה אחרת, תעדכני את הנתיב
+import { embedText } from "../AI/vectorSearch.js"; 
 
 
 import bcrypt from 'bcryptjs';
@@ -51,7 +50,7 @@ export const createUser = async (req, res) => {
 
     const passwordHash = await bcrypt.hash(password, 10);
 
-    // 🔹 חישוב טקסט לאמבדינג
+    
     const embeddingText = [
       fullName,
       role,
@@ -82,7 +81,7 @@ export const createUser = async (req, res) => {
       about,
       jobsLookingFor: normalizedJobsLookingFor,
       passwordHash,
-      embedding, // ⬅️ חשוב בשביל vector search
+      embedding, 
     });
 
     return res.status(201).json({

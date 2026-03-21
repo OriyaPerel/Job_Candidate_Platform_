@@ -1,31 +1,31 @@
-import mongoose from "mongoose";
 import ApplicationModel from "../models/ApplicationModel.js";
 import Job from "../models/JobModel.js";
-import User from "../models/UserModel.js";
+
 
 export async function createApplication(req, res) {
   try {
-    console.log('🟢 Received POST /applications');
+    console.log(' Received POST /applications');
     console.log('Headers:', req.headers);
     console.log('Body:', req.body);
     console.log('User:', req.user);
 
     const candidateId = req.user?._id;
     const { jobId } = req.body;
+    
 
     if (!candidateId) {
-      console.log('❌ Missing candidateId (user not authenticated)');
+      console.log(' Missing candidateId ');
       return res.status(401).json({ message: 'Not authenticated (missing candidateId)' });
     }
 
     if (!jobId) {
-      console.log('❌ Missing jobId');
+      console.log('Missing jobId');
       return res.status(400).json({ message: 'jobId is required' });
     }
 
     const job = await Job.findById(jobId);
     if (!job) {
-      console.log('❌ Job not found in DB');
+      console.log('Job not found in DB');
       return res.status(404).json({ message: 'Job not found' });
     }
 
@@ -34,22 +34,24 @@ export async function createApplication(req, res) {
       job: jobId,
     });
 
-    console.log('✅ Application created:', application._id);
+    console.log(' Application created:', application._id);
     return res.status(201).json({ message: 'Application created', application });
 
   } catch (error) {
-    console.error('🔥 Error creating application:', error);
+    console.error(' Error creating application:', error);
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
+
 export async function getMyApplications(req, res) {
   try {
     const candidateId = req.user?._id;
-    if (!candidateId) return res.status(401).json({ message: 'Not authenticated' });
+    if (!candidateId){
+      return res.status(401).json({ message: 'Not authenticated' });}
 
     const applications = await ApplicationModel.find({ candidate: candidateId })
       .populate('job', 'position location department createdAt')
-      .lean();
+
 
     return res.json(applications);
   } catch (error) {
@@ -57,3 +59,4 @@ export async function getMyApplications(req, res) {
     return res.status(500).json({ message: 'Internal server error' });
   }
 }
+  

@@ -54,7 +54,7 @@ function normalizeEmbeddingResponse(res) {
 
 export async function embedText(query) {
   const res = await ai.embed({
-    embedder: "googleai/text-embedding-004",
+    embedder: "googleai/text-embedding-001",
     content: query,
   });
   const vec = normalizeEmbeddingResponse(res);

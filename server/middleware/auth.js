@@ -8,7 +8,9 @@ export function auth(req, res, next) {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    if (!payload?.userId) return res.status(401).json({ message: 'Invalid token payload' });
+    if (!payload?.userId) {
+    return res.status(401).json({ message: 'Invalid token payload' });}
+
     req.user = { _id: payload.userId, email: payload.email };
     next();
   } catch {

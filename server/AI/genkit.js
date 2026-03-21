@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 
 // בדיקה שה־API key באמת קיים
 if (!process.env.GEMINI_API_KEY) {
-  console.error("❌ GEMINI_API_KEY is missing in environment variables");
+  console.error(" GEMINI_API_KEY is missing in environment variables");
   throw new Error("GEMINI_API_KEY is not set. Please add it to your .env file.");
 }
 

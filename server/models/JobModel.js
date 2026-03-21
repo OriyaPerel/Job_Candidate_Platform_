@@ -9,7 +9,7 @@ const JobSchema = new mongoose.Schema({
   location:   { type: String, trim: true },
   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
   embedding: { type: [Number], default: null }
-}, { timestamps: true });
+}, { timestamps: true });// Automatically adds createdAt and updatedAt timestamps for each document
 
 
 export default mongoose.model('Job', JobSchema);
