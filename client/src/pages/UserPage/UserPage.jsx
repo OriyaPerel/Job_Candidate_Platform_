@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getUserByEmail } from "../../services/UserService";
 import { getMyApplications } from "../../services/ApplicationService";
-import ApplicationList from "../../components/ApplicationList/ApplicationList";
+import ApplicationList from "../../components/ApplicationList/Applications/ApplicationList"
 import styles from "./UserPage.module.css";
 
 export default function UserPage() {

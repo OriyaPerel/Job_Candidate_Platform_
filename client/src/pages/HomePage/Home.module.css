@@ -58,24 +58,6 @@
   color: #4b3c47;
 }
 
-.jobsBox ul {
-  list-style: none;
-  padding: 0;
-}
-
-.jobsBox li {
-  margin: 8px 0;
-}
-
-.jobsBox a {
-  color: #4b3c47;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.jobsBox a:hover {
-  color: #d17ba1;
-}
 
 /* הצד הימני – שלושה ריבועים קטנים */
 .rightBoxes {

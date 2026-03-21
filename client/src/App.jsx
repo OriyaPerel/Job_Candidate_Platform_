@@ -8,8 +8,6 @@ import CreateJobPage from './pages/CreateJobPage/CreateJobPage';
 import UserPage from './pages/UserPage/UserPage';
 import JobsPage from './pages/JobsPage/JobsPage';
 import JobPage from './pages/JobPage/JobPage';
-
-// 💡 ה-AI Chat Panel הגלובלי
 import AiChatPanel from './components/ApplicationList/AiAssistant/AiChatPanel';
 
 export default function App() {
@@ -23,11 +21,8 @@ export default function App() {
 function AppInner() {
   const location = useLocation();
   const [isAuthed, setIsAuthed] = useState(!!localStorage.getItem('token'));
-
-  // 🔹 סטייט גלובלי לחלון ה-AI
   const [aiOpen, setAiOpen] = useState(false);
 
-  // נטען את המשתמש מה-LocalStorage (אם קיים)
   const user = (() => {
     try {
       return JSON.parse(localStorage.getItem('user') || 'null');
@@ -36,12 +31,10 @@ function AppInner() {
     }
   })();
 
-  // בכל ניווט – בדיקה מחדש אם יש token
   useEffect(() => {
     setIsAuthed(!!localStorage.getItem('token'));
   }, [location]);
 
-  // ריענון auth גם מאירועים אחרים באפליקציה (למשל אחרי Login)
   useEffect(() => {
     const onAuthChanged = () => setIsAuthed(!!localStorage.getItem('token'));
     window.addEventListener('authChanged', onAuthChanged);
@@ -88,7 +81,6 @@ function AppInner() {
 
       <main className={styles.main}>
         <Routes>
-          {/* 🔹 מעבירים ל-Home פרופ שפותח את ה-AI */}
           <Route
             path="/"
             element={isAuthed ? <Home onOpenAI={() => setAiOpen(true)} /> : <Navigate to="/login" replace />}
@@ -100,13 +92,10 @@ function AppInner() {
           <Route path="/users/:userId/jobs/new" element={<CreateJobPage />} />
           <Route path="/jobs" element={isAuthed ? <JobsPage /> : <Navigate to="/login" replace />} />
           <Route path="/jobs/:id" element={isAuthed ? <JobPage /> : <Navigate to="/login" replace />} />
-
-          {/* 404 / redirect */}
           <Route path="*" element={<Navigate to={isAuthed ? "/" : "/login"} replace />} />
         </Routes>
       </main>
 
-      {/* 🔹 כאן מרנדרים את המודאל פעם אחת לכל האפליקציה */}
       <AiChatPanel open={aiOpen} onClose={() => setAiOpen(false)} />
     </div>
   );

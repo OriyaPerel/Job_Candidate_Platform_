@@ -10,7 +10,7 @@ export default function AiChatPanel({ open, onClose }) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // כל השיחה: [{type: "user", text}, {type:"assistant", reply, meta, results}, ...]
+  
   const [items, setItems] = useState([]);
 
   async function handleSend(e) {
@@ -34,7 +34,7 @@ export default function AiChatPanel({ open, onClose }) {
       };
       const results = Array.isArray(data.results) ? data.results : [];
 
-      // מוסיפים את תשובת ה-AI להיסטוריה
+      
       setItems((prev) => [
         ...prev,
         {
@@ -181,7 +181,6 @@ export default function AiChatPanel({ open, onClose }) {
         <form className="ai-input-row" onSubmit={handleSend}>
           <input
             className="ai-input"
-            // 3. בלי טקסט לדוגמה – שדה ריק
             placeholder=""
             value={message}
             onChange={(e) => setMessage(e.target.value)}

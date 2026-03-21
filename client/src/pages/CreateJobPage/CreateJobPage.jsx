@@ -91,8 +91,7 @@ await createJob(payload);
         error: apiDetail ? `${apiMsg}: ${JSON.stringify(apiDetail)}` : apiMsg,
         success: '',
       });
-      // לעזרה בדיבאג: לוג לקונסולה
-      // eslint-disable-next-line no-console
+      
       console.error('[CreateJob] error:', error?.response?.data || error);
     }
   };

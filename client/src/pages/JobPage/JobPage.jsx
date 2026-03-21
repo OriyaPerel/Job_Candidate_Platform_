@@ -1,9 +1,9 @@
-// src/pages/JobPage/JobPage.jsx
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom"; 
 import { getJobById } from "../../services/JobService";
 import styles from "./JobPage.module.css";
 import { createApplication } from "../../services/ApplicationService";
+
 
 export default function JobPage() {
   const { id } = useParams();
@@ -11,8 +11,6 @@ export default function JobPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notFound, setNotFound] = useState(false);
-
-  // --- apply state ---
   const [applying, setApplying] = useState(false);
   const [applied, setApplied] = useState(false);
   const [applyError, setApplyError] = useState("");
@@ -61,7 +59,7 @@ export default function JobPage() {
 
   async function onApply() {
   if (applying) return;
-  const jobId = job?._id || id;     // אם השרת לא מחזיר _id, נשתמש ב-id מה־URL
+  const jobId = job?._id || id;   
   console.log('[Apply] jobId =', jobId);
   if (!jobId) { setApplyError('Missing job id'); return; }
 
@@ -111,7 +109,7 @@ export default function JobPage() {
     <div className={styles.form}>
       <h2 className={styles.title}>{job?.position || "Job"}</h2>
 
-      <section className={styles.grid2}>
+      <div className={styles.grid2}>
         <div className={styles.field}>
           <label>Role</label>
           <div className={styles.value}>{job?.position || "-"}</div>
@@ -158,7 +156,7 @@ export default function JobPage() {
               : "-"}
           </div>
         </div>
-      </section>
+      </div>
 
       <div className={styles.field}>
         <label>Job Description</label>
@@ -176,7 +174,7 @@ export default function JobPage() {
         </div>
       </div>
 
-      {/* ---- Apply Action ---- */}
+      
       <div className={styles.actions}>
         <button
           type="button"

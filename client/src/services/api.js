@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-// ✅ ודאי שזו כתובת ה-API הנכונה של השרת שלך
+// ודאי שזו כתובת ה-API הנכונה של השרת שלך
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_BASE || 'http://localhost:5001/api',
   headers: { 'Content-Type': 'application/json' },
-  withCredentials: false, // ❌ אל תשתמשי בזה אם את לא עובדת עם cookies (JWT לא דורש את זה)
+  withCredentials: false, 
 });
 
-// ✅ לפני כל בקשה, נוסיף את ה-token אם הוא קיים
+//  לפני כל בקשה, נוסיף את ה-token אם הוא קיים
 api.interceptors.request.use((config) => {
   try {
     // נשלוף את הטוקן מה-localStorage

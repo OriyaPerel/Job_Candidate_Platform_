@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getAllJobs } from "../../services/JobService";
 import styles from "./JobsPage.module.css";
 import { Link } from "react-router-dom";
+import JobsList from "../../components/ApplicationList/JobsList/JobsList";
 
 export default function JobsPage() {
   const [jobs, setJobs] = useState([]);
@@ -9,12 +10,13 @@ export default function JobsPage() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+
     const fetchJobs = async () => {
       try {
         setLoading(true);
         setError("");
         const data = await getAllJobs();
-        setJobs(data.jobs); // או setJobs(data) אם החזרת רק את המערך
+        setJobs(data.jobs); 
       } catch (err) {
         console.error(err);
         setError(err?.response?.data?.message || err.message || "Unknown error");
@@ -24,6 +26,7 @@ export default function JobsPage() {
     };
 
     fetchJobs();
+    
   }, []);
 
   return (
@@ -32,13 +35,7 @@ export default function JobsPage() {
       <div>
         {loading && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        <ul>
-          {jobs.map((job) => (
-            <li key={job._id}>
-              <Link to={`/jobs/${job._id}`}>{job.position}</Link>
-            </li>
-          ))}
-        </ul>
+        <JobsList jobs={jobs} />
       </div>
     </div>);
 }

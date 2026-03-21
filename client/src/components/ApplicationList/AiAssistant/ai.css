@@ -1,7 +1,7 @@
-/* שכבת רקע שמכסה את כל המסך וממרכזת את החלון */
+
 .ai-backdrop {
   position: fixed;
-  inset: 0; /* top:0, right:0, bottom:0, left:0 */
+  inset: 0; 
   background: rgba(15, 23, 42, 0.35);
   z-index: 9999;
 
@@ -10,7 +10,7 @@
   justify-content: center;
 }
 
-/* חלון הצ'אט – בגודל קבוע באמצע המסך */
+
 .ai-panel {
   width: min(900px, 95vw);
   height: min(600px, 90vh);
@@ -25,7 +25,7 @@
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
 
-/* כותרת */
+
 .ai-header {
   display: flex;
   justify-content: space-between;
@@ -41,7 +41,7 @@
   cursor: pointer;
 }
 
-/* תוכן עם גלילה פנימית */
+
 .ai-content {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -52,7 +52,7 @@
   gap: 8px;
 }
 
-/* תשובה טקסטואלית */
+
 .ai-reply {
   background: #f9fafb;
   border: 1px solid #e5e7eb;
@@ -62,13 +62,13 @@
   font-size: 14px;
 }
 
-/* מטא מידע */
+
 .ai-meta {
   color: #374151;
   font-size: 13px;
 }
 
-/* שורת קלט למטה */
+
 .ai-input-row {
   display: flex;
   gap: 8px;
@@ -93,7 +93,7 @@
   font-weight: 600;
 }
 
-/* הודעת שגיאה */
+
 .ai-error {
   color: #b91c1c;
   background: #fee2e2;
@@ -104,7 +104,7 @@
   font-size: 13px;
 }
 
-/* כרטיסיות תוצאות */
+
 .ai-grid {
   margin-top: 4px;
   display: grid;
@@ -121,7 +121,6 @@
   flex-direction: column;
   gap: 6px;
 }
-/* בועה של המשתמש – מיושרת לימין */
 .ai-user-msg {
   align-self: flex-end;
   max-width: 70%;
@@ -132,7 +131,7 @@
   font-size: 14px;
 }
 
-/* בלוק תשובת ה-AI (טקסט + כרטיסיות) */
+
 .ai-assistant-block {
   align-self: flex-start;
   display: flex;

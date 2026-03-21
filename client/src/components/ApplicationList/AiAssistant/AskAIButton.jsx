@@ -1,4 +1,3 @@
-// client/src/components/ApplicationList/AiAssistant/AskAIButton.jsx
 import React from "react";
 import "./ai.css";
 

@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import { getAllJobs } from '../../services/JobService';
 import styles from './Home.module.css';
 import AskAIButton from "../../components/ApplicationList/AiAssistant/AskAIButton";
+import JobsList from '../../components/ApplicationList/JobsList/JobsList';
 
-// שימי לב: מקבל onOpenAI מה- App (פרופ חדש)
 export default function HomePage({ onOpenAI }) {
   const [jobs, setJobs] = useState([]);
 
@@ -37,18 +37,7 @@ export default function HomePage({ onOpenAI }) {
           {jobs.length === 0 ? (
             <p>No jobs available</p>
           ) : (
-            <ul>
-              {jobs.slice(0, 4).map((job) => (
-                <li key={job._id}>
-                  <Link to={`/jobs/${job._id}`}>
-                    {job.title || job.position || '(No title)'}
-                  </Link>
-                </li>
-              ))}
-              <li>
-                <Link to="/jobs">See all jobs →</Link>
-              </li>
-            </ul>
+            <JobsList jobs={jobs} limit={4} showSeeAll={true} />
           )}
         </div>
 
@@ -62,7 +51,6 @@ export default function HomePage({ onOpenAI }) {
           <div className={styles.smallBox}>More Features</div>
 
           <div className={styles.smallBox}>
-            {/* כאן החיבור לכפתור ה-AI */}
             <AskAIButton label="Ask AI" onOpen={onOpenAI} />
           </div>
         </div>

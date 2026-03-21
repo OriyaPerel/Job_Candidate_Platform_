@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import styles from './LoginPage.module.css';
 
-// בסיס אחיד ל־API: תמיד כולל /api ומוריד סלאש סופי אם צריך
 const API_BASE = (import.meta.env.VITE_API_BASE || 'http://localhost:5001/api').replace(/\/$/, '');
 
 export default function LoginPage() {
@@ -29,7 +28,6 @@ export default function LoginPage() {
       const res = await fetch(`${API_BASE}/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        // credentials: 'include', // להשתמש רק אם עובדים עם httpOnly cookie
         body: JSON.stringify(payload),
       });
 
@@ -47,14 +45,14 @@ export default function LoginPage() {
         return;
       }
 
-      // ✅ שמירת הטוקן והמשתמש – זה מה שמאפשר לכל שאר הבקשות “להכיר” אותך
+      
       if (data?.token) localStorage.setItem('token', data.token);
       if (data?.user)  localStorage.setItem('user', JSON.stringify(data.user));
 
-      // עדכון גלובלי ל־UI
+      
       window.dispatchEvent(new Event('authChanged'));
 
-      // ✅ רידיירקט חכם: חוזרים ליעד שביקשו במקור, או לדף הבית
+      
       const redirectTo = location.state?.redirectTo || '/';
       navigate(redirectTo, { replace: true });
     } catch (e) {

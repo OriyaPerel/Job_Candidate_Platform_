@@ -10,7 +10,7 @@ export async function getAllJobs() {
   return data;
 }
 
-export async function getJobById(id, { signal } = {}) {
-  const { data } = await api.get(`/jobs/${id}`, { signal });
+export async function getJobById(id) {
+  const { data } = await api.get(`/jobs/${id}`);
   return data;
 }
